@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
-import { View, Text, Pressable, StyleSheet, ScrollView } from 'react-native'
+import { Platform, View, Text, Pressable, StyleSheet, ScrollView } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import Maticons from 'react-native-vector-icons/MaterialIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { CartContext } from './CartContext'
 import { useContext } from 'react'
 
 const pages = [
   { id: 'home', icon: 'home', name: 'الرئيسية' },
-  { id: 'cart', icon: 'cart', name: 'عربة التسوق' },
+  { id: 'cart', icon: Platform.select({ios: 'cart', android: 'shopping-cart'}), name: 'عربة التسوق' },
   { id: 'search', icon: 'search', name: 'البحث' },
 ]
 
@@ -34,11 +34,10 @@ const BottomNavigation = ({ structure }) => {
             onPress={() => setPageIndex(index)}
           >
             <View style={{ position: 'relative' }}>
-              <Ionicons
-                name={page.icon}
-                size={24}
-                color={index === pageIndex ? '#ff7300' : '#888'}
-              />
+              {Platform.select({
+                ios: <Ionicons name={page.icon} size={24} color={index === pageIndex ? '#ff7300' : '#888'}/>,
+                android: <Maticons name={page.icon} size={24} color={index === pageIndex ? '#ff7300' : '#888'}/>,
+              })}
               {/* Badge لعربة التسوق */}
               {page.id === 'cart' && cartCount > 0 && (
                 <View style={styles.badge}>

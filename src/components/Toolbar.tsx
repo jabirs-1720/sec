@@ -1,7 +1,9 @@
 import React, { useContext, useEffect } from 'react'
+import { Platform } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useNavigation } from '@react-navigation/native'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import Maticons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import { UserContext } from './UserContext'
 
@@ -41,7 +43,10 @@ const Toolbar: React.FC<ToolbarProps> = ({ title }) => {
             <Text style={styles.profileShortcut}>{initials}</Text>
           </View>
         ) : (
-          <Ionicons name="person-circle" size={30} color="#555" />
+          Platform.select({
+            ios: <Ionicons name="person-circle" size={30} color="#555" />,
+            android: <Maticons name="account-circle" size={30} color="#555" />
+          })
         )}
       </TouchableOpacity>
     </View>

@@ -8,6 +8,7 @@ import {
   Text,
   View,
   Button,
+  TouchableOpacity,
   StyleProp,
   StyleSheet,
   ViewStyle,
@@ -46,7 +47,10 @@ const ProductsGrid: React.FC<ProductsGridProps> = ({ products, title }) => {
       {title && (
         <View style={styles.category}>
           <Text style={styles.categoryTitle}>{title}</Text>
-          <Button title="المزيد" onPress={() => navigation.navigate('category', { title })} />
+          {/* <Button title="المزيد" onPress={() => navigation.navigate('category', { title })} /> */}
+          <TouchableOpacity onPress={() => navigation.navigate('category', { title })}>
+            <Text style={{color: '#007AFF', fontSize: 14}}>المزيد</Text>
+          </TouchableOpacity>
         </View>
       )}
       <Grid style={{ padding: 15 }}>
